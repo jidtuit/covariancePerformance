@@ -17,17 +17,34 @@ public class TestUtils {
         return random.nextDouble();
     }
 
+    public static double nextDoublePrimitive() {
+        return random.nextDouble();
+    }
 
-    public static List<List<Double>> generateDoubleRandomMatrix(long cols, long rows) {
+    public static double[][] generateDoubleRandomMatrix(int cols, int rows) {
+        double resp[][] = new double[cols][rows];
+
+        IntStream.range(0, cols)
+                .forEach(col ->
+                    IntStream.range(0, rows)
+                        .forEach(row -> resp[col][row] = nextDoublePrimitive())
+                );
+
+        return resp;
+    }
+
+
+
+    public static List<List<Double>> generateDoubleObjectRandomMatrix(int cols, int rows) {
         return generateRandomMatrix(cols, rows, TestUtils::nextDouble);
     }
 
 
-    public static <T> List<List<T>> generateRandomMatrix(long cols, long rows, Supplier<T> itemGenerator) {
+    public static <T> List<List<T>> generateRandomMatrix(int cols, int rows, Supplier<T> itemGenerator) {
 
-        return LongStream.range(0, cols)
+        return IntStream.range(0, cols)
                 .boxed()
-                .map(col -> LongStream.range(0, rows)
+                .map(col -> IntStream.range(0, rows)
                         .mapToObj(i -> itemGenerator.get())
                         .collect(Collectors.toList())
                 ).collect(Collectors.toList());
@@ -35,7 +52,17 @@ public class TestUtils {
     }
 
 
-    public static double[] toDoubleArray(List<Double> doubles) {
+    public static double[] toArray(Double array[]) {
+        double[] resp = new double[array.length];
+
+        IntStream.range(0, array.length)
+                .forEach(i -> resp[i] = array[i]);
+
+        return resp;
+    }
+
+
+    public static double[] toArray(List<Double> doubles) {
 
         double resp[] = new double[doubles.size()];
 

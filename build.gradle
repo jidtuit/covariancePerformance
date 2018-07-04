@@ -12,14 +12,23 @@ repositories {
     mavenCentral()
 }
 
-
 test {
     useJUnitPlatform()
+
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+
+    // set heap size for the test JVM(s)
+    // minHeapSize = "4g"
+    // maxHeapSize = "7g"
 }
 
 
 dependencies {
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+
+    compile group: 'org.ejml', name: 'ejml-core', version: '0.34'
+
 
     testCompile("org.junit.jupiter:junit-jupiter-api:5.2.0")
     testCompile("org.junit.jupiter:junit-jupiter-params:5.2.0")
